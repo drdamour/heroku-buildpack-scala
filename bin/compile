@@ -4,8 +4,6 @@
 # fail fast
 set -e
 
-gem install compass
-
 BP_DIR=$(cd $(dirname $0)/..; pwd) # absolute path
 BIN_DIR=$BP_DIR/bin
 OPT_DIR=$BP_DIR/opt
@@ -20,6 +18,10 @@ curl --silent --location http://heroku-jvm-common.s3.amazonaws.com/jvm-buildpack
 
 #create the cache dir if it doesn't exist
 mkdir -p $CACHE_DIR
+
+mkdir -p $CACHE_DIR/.gems
+gem install -i $CACHE_DIR/.gems --no-rdoc compass
+export $PATH=$PATH:$CACHE_DIR/.gems/bin
 
 # create default system.properties 
 if [ ! -f ${BUILD_DIR}/system.properties ]; then
