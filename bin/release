@@ -20,7 +20,7 @@ EOF
 if is_play $BUILD_DIR && [ ! -f $BUILD_DIR/Procfile ] ; then
   echo "default_process_types:"
   if uses_universal_packaging $BUILD_DIR; then
-    echo "  $(universal_packaging_default_web_proc $BUILD_DIR) -Dconfig.resource=\$ENV_CONFIG_FILE"
+    echo "  $(universal_packaging_default_web_proc $BUILD_DIR)"
   else
     echo "  web: target/start -Dconfig.resource=application.qa.conf -Dhttp.port=\$PORT \$JAVA_OPTS"
   fi
